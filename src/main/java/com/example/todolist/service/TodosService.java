@@ -29,7 +29,11 @@ public class TodosService {
         Todo todo = todoRepository.findById(id)
                 .orElseThrow(() -> new TodoNotFoundException("To do not found."));
 
-        todo.setDone(updateTodo.isDone());
+        if(updateTodo.getText() != null) {
+            todo.setText(updateTodo.getText());
+        }else{
+            todo.setDone(updateTodo.isDone());
+        }
 
         return todoRepository.save(todo);
     }
