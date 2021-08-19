@@ -2,7 +2,7 @@ package com.example.todolist.integration;
 
 import com.example.todolist.entity.Todo;
 import com.example.todolist.repository.TodoRepository;
-import org.junit.jupiter.api.AfterEach;
+import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,4 +75,19 @@ public class TodoIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.done").value(true));
     }
+    
+    @Test
+    void should_delete_todo_when_call_delete_todo_api() throws Exception {
+        //given
+        final Todo firstTodo = new Todo("first to do item",false);
+        final Todo secondTodo = new Todo("second to do item",true);
+        todoRepository.saveAll(Lists.list(firstTodo, secondTodo));
+        Integer firstTodoId = firstTodo.getId();
+
+        //when
+        //then
+        mockMvc.perform(MockMvcRequestBuilders.delete("/todos/{firstTodoId}", firstTodoId))
+                .andExpect(status().isOk());
+    }
+    
 }
