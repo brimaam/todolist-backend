@@ -58,6 +58,21 @@ public class TodoIntegrationTest {
                 .andExpect(jsonPath("$.done").value(false));
     }
 
+    @Test
+    void should_update_todo_when_call_update_todo_api() throws Exception {
+        //given
+        final Todo todo = new Todo("first to do item",false);
+        todoRepository.save(todo);
+        Integer todoId = todo.getId();
 
-
+        String todoUpdate = "{\n" +
+                "    \"done\": true\n" +
+                "}";
+        //when
+        //then
+        mockMvc.perform(MockMvcRequestBuilders.put("/todos/{todoId}", todoId)
+                .contentType(MediaType.APPLICATION_JSON).content(todoUpdate))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.done").value(true));
+    }
 }
