@@ -23,7 +23,7 @@ public class TodosController {
     }
 
     @GetMapping
-    public List<TodoResponse> getTodos(){
+    public List<TodoResponse> getTodos() {
         return todoMapper.toResponse(todosService.getTodos());
     }
 
@@ -31,6 +31,12 @@ public class TodosController {
     @ResponseStatus(code = HttpStatus.CREATED)
     public TodoResponse addTodo(@RequestBody TodoRequest todoRequest) {
         return todoMapper.toResponse(todosService.addTodo(todoMapper.toEntity(todoRequest)));
+    }
+
+    @PutMapping(path = "/{todoId}")
+    public TodoResponse updateTodo(@PathVariable Integer todoId, @RequestBody TodoRequest todoRequest) {
+        return todoMapper.toResponse(todosService
+                .updateTodo(todoMapper.toEntity(todoRequest), todoId));
     }
 
 
