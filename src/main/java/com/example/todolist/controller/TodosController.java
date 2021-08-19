@@ -39,5 +39,9 @@ public class TodosController {
                 .updateTodo(todoMapper.toEntity(todoRequest), todoId));
     }
 
+    @DeleteMapping(path = "/{todoId}")
+    public void deleteTodo(@PathVariable Integer todoId) {
+        todosService.deleteTodo(todoId);
+    }
 
 }
