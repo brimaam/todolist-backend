@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class TodoService {
+public class TodosService {
     @Autowired
     private final TodoRepository todoRepository;
 
-    public TodoService(TodoRepository todoRepository) {
+    public TodosService(TodoRepository todoRepository) {
         this.todoRepository = todoRepository;
     }
 
