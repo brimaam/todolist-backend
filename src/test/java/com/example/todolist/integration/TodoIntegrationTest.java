@@ -24,14 +24,14 @@ public class TodoIntegrationTest {
     private TodoRepository todoRepository;
 
     @BeforeEach
-    void deleteData(){
+    void deleteData() {
         todoRepository.deleteAll();
     }
 
     @Test
     void should_return_all_todos_when_call_get_todos_api() throws Exception {
         //given
-        final Todo todo = new Todo("first to do item",false);
+        final Todo todo = new Todo("first to do item", false);
         todoRepository.save(todo);
 
         //when
@@ -61,7 +61,7 @@ public class TodoIntegrationTest {
     @Test
     void should_update_todo_when_call_update_todo_api() throws Exception {
         //given
-        final Todo todo = new Todo("first to do item",false);
+        final Todo todo = new Todo("first to do item", false);
         todoRepository.save(todo);
         Integer todoId = todo.getId();
 
@@ -75,12 +75,12 @@ public class TodoIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.done").value(true));
     }
-    
+
     @Test
     void should_delete_todo_when_call_delete_todo_api() throws Exception {
         //given
-        final Todo firstTodo = new Todo("first to do item",false);
-        final Todo secondTodo = new Todo("second to do item",true);
+        final Todo firstTodo = new Todo("first to do item", false);
+        final Todo secondTodo = new Todo("second to do item", true);
         todoRepository.saveAll(Lists.list(firstTodo, secondTodo));
         Integer firstTodoId = firstTodo.getId();
 
@@ -89,5 +89,5 @@ public class TodoIntegrationTest {
         mockMvc.perform(MockMvcRequestBuilders.delete("/todos/{firstTodoId}", firstTodoId))
                 .andExpect(status().isOk());
     }
-    
+
 }

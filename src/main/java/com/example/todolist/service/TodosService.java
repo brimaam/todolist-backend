@@ -29,9 +29,9 @@ public class TodosService {
         Todo todo = todoRepository.findById(id)
                 .orElseThrow(() -> new TodoNotFoundException("To do not found."));
 
-        if(updateTodo.getText() != null) {
+        if (updateTodo.getText() != null) {
             todo.setText(updateTodo.getText());
-        }else{
+        } else {
             todo.setDone(updateTodo.isDone());
         }
 
